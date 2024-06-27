@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "tipo_pago.apps.TipoPagoConfig",
+    "ingreso_detalle.apps.IngresoDetalleConfig",
+    "ingreso_cabecera.apps.IngresoCabeceraConfig",
     "polls.apps.PollsConfig",
     "users.apps.UsersConfig",
     'django.contrib.admin',
