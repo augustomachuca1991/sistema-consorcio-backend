@@ -31,6 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "gasto.apps.GastoConfig",
+    "permiso_usuario.apps.PermisoUsuarioConfig",
+    "tipo_usuario.apps.TipoUsuarioConfig",
+    "habitante.apps.HabitanteConfig",
+    "inmueble.apps.InmuebleConfig",
+    "planta.apps.PlantaConfig",
+    "seccion.apps.SeccionConfig",
+    "edificio.apps.EdificioConfig",
     "tipo_pago.apps.TipoPagoConfig",
     "ingreso_detalle.apps.IngresoDetalleConfig",
     "ingreso_cabecera.apps.IngresoCabeceraConfig",
@@ -42,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'consorcio.urls'
@@ -130,3 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 APPEND_SLASH = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    # Agrega aquí otros dominios permitidos si es necesario
+]

@@ -18,12 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('polls/' , include('polls.urls')),
     path('users/' , include('users.urls')),
     path('ingresoCab/' , include('ingreso_cabecera.urls')),
     path('ingresoDet/' , include('ingreso_detalle.urls')),
-    path('tipoPago/' , include('tipo_pago.urls'))
+    path('tipoPago/' , include('tipo_pago.urls')),
+    path('edificio/', include('edificio.urls')),
+    path('seccion/', include('seccion.urls')),
+    path('planta/', include('planta.urls')),
+    path('inmueble/', include('inmueble.urls')),
+    path('habitante/', include('habitante.urls')),
+    path('tipoUsuario/', include('tipo_usuario.urls')),
+    path('permisos/', include('permiso_usuario.urls')),
+    path('gastos/', include('gasto.urls'))
+
 
 
 ]

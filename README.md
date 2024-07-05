@@ -8,6 +8,6 @@
 
 # para windows (./venv/Scripts/activate) para linux source /venv/bin/activate
 
-
+#  pip freeze > requirements.txt (utilizar cuando se instalen nuevos packages)
 
 # pip install -r requirements.txt

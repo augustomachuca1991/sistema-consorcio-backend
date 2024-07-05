@@ -1,6 +1,8 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from users.models import User
+from tipo_usuario.models import TipoUsuario
+from permiso_usuario.models import PermisoUsuario
 import json
 
 #List of users
