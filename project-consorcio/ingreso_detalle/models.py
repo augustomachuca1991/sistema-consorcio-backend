@@ -3,6 +3,7 @@ from tipo_pago.models import TipoPago
 from ingreso_cabecera.models import IngresoCabecera
 
 
+
 # Create your models here.
 class IngresoDetalle(models.Model):
     id_ingreso_detalle = models.AutoField(primary_key=True)
