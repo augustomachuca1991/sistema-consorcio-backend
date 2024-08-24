@@ -5,3 +5,6 @@ env/
 .env/
 .venv/
 !*.pyc
+# Ignore Python bytecode
+*.pyc
+__pycache__/
