@@ -4,9 +4,7 @@ from django.http import JsonResponse
 from edificio.models import Edificio
 import json
 
-# Create your views http
-def index(resquest):
-    return HttpResponse("Hello, it's Edificio section")
+
 # list of edificios
 def index(request):
     edificio = list(Edificio.objects.all().values())
@@ -35,7 +33,7 @@ def store(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-#Update Edificiio
+#Actualizar Edificiio
 @csrf_exempt
 def update(request, id_edificio):
     if request.method != 'PUT':
@@ -62,3 +60,29 @@ def update(request, id_edificio):
     edificio.save()
     
     return JsonResponse({'message': 'Edificio updated successfully'}, status=200)
+
+@csrf_exempt
+def show(request, id_edificio):
+    try:
+        edificio = Edificio.objects.get(id_edificio=id_edificio)
+        return JsonResponse({
+            'id_edificio': edificio.id_edificio,
+            'nombre': edificio.nombre,
+            'direccion': edificio.direccion,
+            'telefono': edificio.telefono,
+            'created_at': edificio.created_at,
+        })
+    except Edificio.DoesNotExist:
+        return JsonResponse({'error': 'Edificio not found'}, status=404)
+
+@csrf_exempt
+def delete(request, id_edificio):
+    if request.method != 'DELETE':
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+    try:
+        edificio = Edificio.objects.get(id_edificio=id_edificio)
+        edificio.delete()
+        return JsonResponse({'message': 'Edificio deleted successfully'}, status=200)
+    except Edificio.DoesNotExist:
+        return JsonResponse({'error': 'Edificio not found'}, status=404)

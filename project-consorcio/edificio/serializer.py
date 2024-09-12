@@ -5,3 +5,5 @@ class EdificioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Edificio
         fields = "__all__"
+
+        

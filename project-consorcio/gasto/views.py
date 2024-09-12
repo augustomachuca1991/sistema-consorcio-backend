@@ -5,7 +5,7 @@ from gasto.models import Gasto
 import json
 
 # Create your views here.
-def index(resquest):
+def index(request):
     return HttpResponse("Hello, it's GASTOS views")
 #list of gastos
 def index(request):
@@ -23,8 +23,8 @@ def store(request):
             
             # Crear el nuevo gasto
             new_gasto = Gasto.objects.create(
-                descripcion_gasto=data['descripcion_gasto']
-              
+                descripcion_gasto=data['descripcion_gasto'],
+                importe=data['importe']
             )
             return JsonResponse({'message': 'Gasto created successfully'}, status=201)
         except json.JSONDecodeError:
@@ -50,9 +50,9 @@ def update(request, id_gasto):
     except Gasto.DoesNotExist:
         return JsonResponse({'error': 'Gasto not found'}, status=404)
     
-    # Actualizar los campos del usuario usando el método `update` de Django
+    # Actualizar los campos del gastos usando el método `update` de Django
     fields_to_update = {}
-    for field in ['descripcion_gasto']:
+    for field in ['descripcion_gasto', 'importe']:
         if field in data:
             fields_to_update[field] = data[field]
     
@@ -62,3 +62,29 @@ def update(request, id_gasto):
     
     return JsonResponse({'message': 'Gasto updated successfully'}, status=200)
 
+#Eliminar un registro de Gasto
+@csrf_exempt
+def delete(request, id_gasto):
+    if request.method != 'DELETE':
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+    try:
+        gasto = Gasto.objects.get(id_gasto=id_gasto)
+        gasto.delete()
+        return JsonResponse({'message': 'Gasto deleted successfully'}, status=200)
+    except Gasto.DoesNotExist:
+        return JsonResponse({'error': 'Gasto not found'}, status=404)
+
+
+@csrf_exempt
+def show(request, id_gasto):
+    try:
+        gasto = Gasto.objects.get(id_gasto=id_gasto)
+        return JsonResponse({
+            'id_gasto': gasto.id_gasto,
+            'descripcion_gasto': gasto.descripcion_gasto,
+            'importe': gasto.importe,
+            'created_at': gasto.created_at,
+        })
+    except Gasto.DoesNotExist:
+        return JsonResponse({'error': 'Gasto not found'}, status=404)

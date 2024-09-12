@@ -29,16 +29,19 @@ urlpatterns = [
     path('ingresoCab/' , include('ingreso_cabecera.urls')),
     path('ingresoDet/' , include('ingreso_detalle.urls')),
     path('tipoPago/' , include('tipo_pago.urls')),
-    path('edificio/', include('edificio.urls')),
     path('seccion/', include('seccion.urls')),
     path('planta/', include('planta.urls')),
-    path('inmueble/', include('inmueble.urls')),
-    path('habitante/', include('habitante.urls')),
+   
+    
     path('tipoUsuario/', include('tipo_usuario.urls')),
     path('permisos/', include('permiso_usuario.urls')),
-    path('gastos/', include('gasto.urls')),
+    
     path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/edificios/', include('edificio.urls')),
+    path('api/inmuebles/', include('inmueble.urls')),
+    path('api/gastos/', include('gasto.urls')),
+    path('api/habitantes/', include('habitante.urls')),
 
 
 
