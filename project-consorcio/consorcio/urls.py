@@ -31,8 +31,9 @@ urlpatterns = [
     path('tipoPago/' , include('tipo_pago.urls')),
     path('seccion/', include('seccion.urls')),
     path('planta/', include('planta.urls')),
-   
     
+   
+     path('planta/', include('planta.urls')),
     path('tipoUsuario/', include('tipo_usuario.urls')),
     path('permisos/', include('permiso_usuario.urls')),
     
@@ -42,6 +43,8 @@ urlpatterns = [
     path('api/inmuebles/', include('inmueble.urls')),
     path('api/gastos/', include('gasto.urls')),
     path('api/habitantes/', include('habitante.urls')),
+    path('api/cabecera/', include('cabecera.urls')),
+    path('api/detalle/', include('detalle.urls')),
 
 
 

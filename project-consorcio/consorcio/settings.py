@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "cabecera.apps.CabeceraConfig",
+    "detalle.apps.DetalleConfig",
     "gasto.apps.GastoConfig",
     "permiso_usuario.apps.PermisoUsuarioConfig",
     "tipo_usuario.apps.TipoUsuarioConfig",

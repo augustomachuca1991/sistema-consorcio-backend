@@ -4,24 +4,33 @@ from django.http import JsonResponse
 from habitante.models import Habitante
 from inmueble.models import Inmueble
 import json
+from django.db.models import Q
 
 # Create your views here.
 def index(resquest):
     return HttpResponse("Hello, it's HABITANTE views")
 
-#list of habitantes
+## Listar habitantes y permitir búsqueda por término
 def index(request):
-    habitantes = list(Habitante.objects.all().values())
-    return JsonResponse({"habitante": habitantes})
+ # Obtener el término de búsqueda desde los parámetros de la URL
+    search_term = request.GET.get('search', '')
 
-    #class Habitante(models.Model):
-    #id_habitante = models.AutoField(primary_key=True)
-    #id_inmueble = models.ForeignKey(Inmueble, on_delete=models.CASCADE)
-    #nombre = models.CharField(max_length=255)
-    #dni = models.CharField(max_length=20)
-    #correo = models.EmailField()
-    #telefono = models.CharField(max_length=20)
-    #created_at = models.DateTimeField(auto_now_add=True)
+ #Filtrar si se cargó un termino de busqueda
+    if search_term:
+        habitantes = Habitante.objects.filter(
+            Q(nombre__icontains=search_term) | #Filtra por nombre del habitante
+            Q(dni__icontains=search_term)  #Filtra por dni del habitante
+        ).values() #esegurar de convertir en un iterable
+
+    else:
+
+#si no hay termino  de busqueda
+         habitantes = Habitante.objects.all().values()  # No necesitas convertir a lista aquí
+    #convertir a lista antes de devolver la respuesta
+    return JsonResponse({"habitante": list(habitantes)}, safe=False)
+
+
+
 
 @csrf_exempt
 def store(request):

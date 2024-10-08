@@ -2,15 +2,29 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from gasto.models import Gasto
+from django.db.models import Q
 import json
 
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, it's GASTOS views")
-#list of gastos
+
+# Vista para listar gastos y permitir búsqueda por término
 def index(request):
-    gastos = list(Gasto.objects.all().values())
-    return JsonResponse({"gastos": gastos})
+    # Obtener el término de búsqueda desde los parámetros de la URL
+    search_term = request.GET.get('search', '')
+
+    # Filtrar si se cargó un término de búsqueda
+    if search_term:
+        gastos = Gasto.objects.filter(
+            Q(descripcion_gasto__icontains=search_term)  # Filtra por descripción del gasto
+        ).values()  # Asegúrate de convertir en un iterable
+    else:
+        # Si no hay término de búsqueda, devuelve todos los gastos
+        gastos = Gasto.objects.all().values()  # No necesitas convertir a lista aquí
+    # Convertir a lista antes de devolver la respuesta
+    return JsonResponse({"gastos": list(gastos)}, safe=False)
+
 #add new gasto
 @csrf_exempt
 def store(request):
